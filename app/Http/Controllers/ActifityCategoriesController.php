@@ -9,11 +9,8 @@ class ActifityCategoriesController extends Controller
 {
     public function GetAllActifityCategories()
     {
-        $dataActifityCategories = ActifityCategories::all();
-        return response()->json([
-            'title' => 'all categories actifity',
-            'data_actifity_categories' => $dataActifityCategories,
-        ]);
+        $data_actifity_categories = ActifityCategories::all();
+        return response()->json($data_actifity_categories);
     }
 
     public function GetActifityCategoriesByUuid($uuid)

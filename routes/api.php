@@ -43,16 +43,16 @@ Route::put('/update_actifity_category/{uuid}', [ActifityCategoriesController::cl
 Route::delete('/delete_actifity_category/{uuid}', [ActifityCategoriesController::class, 'DeleteActifityCategories']);
 
 Route::get('/actifities', [ActifityController::class, 'GetAllActifity']);
-Route::get('/getactifity/{uuid}', [ActifityController::class, 'GetActifityByUuid']);
+Route::get('/getoneactifity/{uuid}', [ActifityController::class, 'GetActifityByUuid']);
 Route::post('/addactifity', [ActifityController::class, 'AddActifity']);
 Route::put('/updateactifity/{uuid}', [ActifityController::class, 'UpdateActifityByUuid']);
 Route::delete('/deleteactifity/{uuid}', [ActifityController::class, 'DeleteActifityByUuid']);
 
-Route::get('getallmodulcategories', [ModulCategoriesController::class, 'GetAllModulCategories']);
-Route::get('getmodulcategoriesbyuuid/{uuid}', [ModulCategoriesController::class, 'GetModulCategoriesByUuid']);
-Route::post('addmodulcategories', [ModulCategoriesController::class, 'AddModulCategories']);
-Route::put('updatemodulcategories/{uuid}', [ModulCategoriesController::class, 'UpdateModulCategories']);
-Route::delete('deletemodulcategories/{uuid}', [ModulCategoriesController::class, 'DeleteModulCategories']);
+Route::get('/getallmodulcategories', [ModulCategoriesController::class, 'GetAllModulCategories']);
+Route::get('/getmodulcategoriesbyuuid/{uuid}', [ModulCategoriesController::class, 'GetModulCategoriesByUuid']);
+Route::post('/addmodulcategories', [ModulCategoriesController::class, 'AddModulCategories']);
+Route::put('/updatemodulcategories/{uuid}', [ModulCategoriesController::class, 'UpdateModulCategories']);
+Route::delete('/deletemodulcategories/{uuid}', [ModulCategoriesController::class, 'DeleteModulCategories']);
 
 Route::get('getallmoduls', [ModulsController::class, 'GetAllModuls']);
 Route::get('getmodulbyuuid/{uuid}', [ModulsController::class, 'GetModulsByUuid']);
