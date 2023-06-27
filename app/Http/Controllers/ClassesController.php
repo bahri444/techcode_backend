@@ -11,10 +11,8 @@ class ClassesController extends Controller
 {
     public function GetAllClass()
     {
-        $data_class = Classes::all();
-        return response()->json([
-            'all data_class' => $data_class,
-        ]);
+        $data_class = Classes::with('joinToProfession')->get();
+        return response()->json($data_class);
     }
     public function GetClassByUuid($uuid)
     {

@@ -11,9 +11,7 @@ class ProfessionsController extends Controller
     public function GetAllProfession()
     {
         $data_professions = Professions::all();
-        return response()->json([
-            'data_professions' => $data_professions
-        ], 200);
+        return response()->json($data_professions, 200);
     }
     public function GetProfessionByUuid($uuid)
     {

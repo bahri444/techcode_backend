@@ -18,7 +18,7 @@ class ActifityController extends Controller
 
     public function GetActifityByUuid($uuid)
     {
-        $data_actifity = Actifity::findOrFail($uuid);
+        $data_actifity = Actifity::with('ToCategoriesActifity')->findOrFail($uuid);
         $data_actifity->actifity_id = $uuid;
         return response()->json($data_actifity);
     }

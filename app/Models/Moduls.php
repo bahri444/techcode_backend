@@ -23,4 +23,12 @@ class Moduls extends Model
         'updated_at',
     ];
     protected $guarded = [];
+    public function joinToModulCategories()
+    {
+        return $this->hasMany(ModulCategories::class, 'modul_categories_uuid', 'modul_categories_uuid');
+    }
+    public function joinToClass()
+    {
+        return $this->hasMany(Classes::class, 'class_uuid', 'class_uuid');
+    }
 }

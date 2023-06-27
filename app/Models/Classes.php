@@ -24,4 +24,8 @@ class Classes extends Model
         'updated_at'
     ];
     protected $guarded = [];
+    public function joinToProfession()
+    {
+        return $this->hasMany(Professions::class, 'profession_uuid', 'profession_uuid');
+    }
 }

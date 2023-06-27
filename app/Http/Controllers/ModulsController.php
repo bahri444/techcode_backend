@@ -11,16 +11,14 @@ class ModulsController extends Controller
 
     public function GetAllModuls()
     {
-        $data_all_moduls = Moduls::all();
+        $data_all_moduls = Moduls::with('joinToModulCategories', 'joinToClass')->get();
         return response()->json($data_all_moduls);
     }
     public function GetModulsByUuid($uuid)
     {
         $find_data_modul = Moduls::findOrFail($uuid);
         $find_data_modul->modul_uuid = $uuid;
-        return response()->json([
-            'data' => $find_data_modul
-        ], 200);
+        return response()->json($find_data_modul, 200);
     }
     public function AddModuls(Request $request)
     {
@@ -28,7 +26,7 @@ class ModulsController extends Controller
             'modul_categories_uuid' => 'required',
             'class_uuid' => 'required',
             'modul_title' => 'required',
-            'modul_files' => 'required',
+            'modul_files' => 'required|file|mimes:pdf',
             'modul_to' => 'required',
             'learn_state' => 'required',
         ]);
@@ -36,6 +34,7 @@ class ModulsController extends Controller
             if (!$validator->fails()) {
                 $getFileModul = $request->file('modul_files');
                 $fileNameHash = $getFileModul->hashName();
+                $fileSaveInStorage = "/storage/moduls/$fileNameHash";
                 $request->modul_files->move(public_path('/storage/moduls'), $fileNameHash);
             } elseif (!$validator->fails()) {
                 return response()->json([
@@ -46,7 +45,7 @@ class ModulsController extends Controller
                 'modul_categories_uuid' => $request->modul_categories_uuid,
                 'class_uuid' => $request->class_uuid,
                 'modul_title' => $request->modul_title,
-                'modul_files' => $fileNameHash,
+                'modul_files' => $fileSaveInStorage,
                 'modul_to' => $request->modul_to,
                 'learn_state' => $request->learn_state,
             ]);
@@ -67,28 +66,30 @@ class ModulsController extends Controller
             'modul_categories_uuid' => 'required',
             'class_uuid' => 'required',
             'modul_title' => 'required',
-            'modul_files' => 'required|mimes:pfd|max:10240',
+            'modul_files' => 'required|file|mimes:pfd',
             'modul_to' => 'required',
             'learn_state' => 'required',
         ]);
+        // dd($validator);
         try {
-            if ($validator->fails() == true) {
+            if ($request == true) {
                 $update_modul_uuid = Moduls::find($uuid);
                 $getFile = $request->file('modul_files');
-                $hashFileName = $getFile->hashName();
-                $request->input('modul_files')->move(public_path('/storage/moduls'), $hashFileName);
+                $fileNameHash = $getFile->hashName();
+                $fileSaveInStorage = "/storage/moduls/$fileNameHash";
+                $request->modul_files->move(public_path('/storage/moduls'), $fileNameHash);
 
                 $update_modul_uuid->modul_categories_uuid = $request->input('modul_categories_uuid');
                 $update_modul_uuid->class_uuid = $request->input('class_uuid');
-                $update_modul_uuid->modul_title = $request->input('modal_title');
-                $update_modul_uuid->modul_files = $hashFileName;
+                $update_modul_uuid->modul_title = $request->input('modul_title');
+                $update_modul_uuid->modul_files = $fileSaveInStorage;
                 $update_modul_uuid->modul_to = $request->input('modul_to');
                 $update_modul_uuid->learn_state = $request->input('learn_state');
                 $update_modul_uuid->save();
                 return response()->json([
                     'success' => 'data berhasil di update'
                 ]);
-            } elseif ($validator->fails() == false) {
+            } elseif ($request == false) {
                 return response()->json([
                     'errors' => 'filed tidak boleh ada yang kosong',
                 ], 400);
