@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('class_name');
             $table->string('price_class');
             $table->char('class_duration');
-            $table->date('start');
-            $table->date('end');
+            $table->date('start_date');
+            $table->date('end_date');
             $table->timestamps();
             $table->foreign('profession_uuid')->references('profession_uuid')->on('professions')->cascadeOnUpdate()->cascadeOnDelete();
         });

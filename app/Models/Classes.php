@@ -18,8 +18,8 @@ class Classes extends Model
         'class_name',
         'price_class',
         'class_duration',
-        'start',
-        'end',
+        'start_date',
+        'end_date',
         'created_at',
         'updated_at'
     ];

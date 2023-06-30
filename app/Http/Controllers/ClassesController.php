@@ -29,8 +29,8 @@ class ClassesController extends Controller
             'class_name' => 'required',
             'price_class' => 'required',
             'class_duration' => 'required',
-            'start' => 'required',
-            'end' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ]);
         try {
             $data_add_class = new Classes([
@@ -38,8 +38,8 @@ class ClassesController extends Controller
                 'class_name' => $request->class_name,
                 'price_class' => $request->price_class,
                 'class_duration' => $request->class_duration,
-                'start' => $request->start,
-                'end' => $request->end,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
             ]);
             $data_add_class->save();
             return response()->json([
@@ -59,8 +59,8 @@ class ClassesController extends Controller
             'class_name' => 'required',
             'price_class' => 'required',
             'class_duration' => 'required',
-            'start' => 'required',
-            'end' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ]);
         try {
             $update_data = Classes::find($uuid);
@@ -68,8 +68,8 @@ class ClassesController extends Controller
             $update_data->class_name = $request->class_name;
             $update_data->price_class = $request->price_class;
             $update_data->class_duration = $request->class_duration;
-            $update_data->start = $request->start;
-            $update_data->end = $request->end;
+            $update_data->start_date = $request->start_date;
+            $update_data->end_date = $request->end_date;
             $update_data->save();
             return response()->json([
                 'success' => 'data berhasil di update'
