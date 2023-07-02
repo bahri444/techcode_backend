@@ -33,8 +33,8 @@ class IndustriesController extends Controller
             if (!$validator->fails()) {
                 $getLogoFile = $request->file('industy_logo');
                 $getLogoName = $getLogoFile->hashName();
-                $direktory = "/storage/industries_logo/$getLogoName";
-                $request->industy_logo->move(public_path('/storage/industries_logo/'), $getLogoName);
+                $direktory = "/industries_logo/$getLogoName";
+                $request->industy_logo->move(public_path('/industries_logo/'), $getLogoName);
                 $data_industry = new Industries([
                     'industry_name' => $request->industry_name,
                     'industy_logo' => $direktory,

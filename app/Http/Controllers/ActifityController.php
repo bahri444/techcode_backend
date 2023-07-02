@@ -41,8 +41,8 @@ class ActifityController extends Controller
             if (!$validator->fails()) {
                 $getFile = $request->file('actifity_foto'); //ambil file yang di upload dari gambar
                 $getFileName = $getFile->hashName(); //hash nama file yang di upload
-                $direktory = "/storage/actifity_foto/$getFileName";
-                $request->actifity_foto->move(public_path('/storage/actifity_foto/'), $getFileName);
+                $direktory = "/actifity_foto/$getFileName";
+                $request->actifity_foto->move(public_path('/actifity_foto/'), $getFileName);
             } elseif ($request->fails()) {
                 return response()->json([
                     'not_file' => 'gambar tidak boleh kosong',
@@ -90,11 +90,11 @@ class ActifityController extends Controller
                 $actifity = Actifity::find($uuid);
                 $getFileUpload = $request->file('actifity_foto');
                 $getFileNameUpdate = $getFileUpload->hashName();
-                $direktory = "/storage/actifity_foto/$getFileNameUpdate";
-                $request->actifity_foto->move(public_path('/storage/actifity_foto/'), $getFileNameUpdate);
+                $direktory = "/actifity_foto/$getFileNameUpdate";
+                $request->actifity_foto->move(public_path('/actifity_foto/'), $getFileNameUpdate);
 
                 //delete image yang lama
-                Storage::delete('/storage/actifity_foto/' . basename($actifity->actifity_foto));
+                Storage::delete('/actifity_foto/' . basename($actifity->actifity_foto));
 
                 // update data dengan foto yang baru
                 $actifity->actifity_categories_uuid = $request->input('actifity_categories_uuid');

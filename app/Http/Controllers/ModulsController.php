@@ -34,8 +34,8 @@ class ModulsController extends Controller
             if (!$validator->fails()) {
                 $getFileModul = $request->file('modul_files');
                 $fileNameHash = $getFileModul->hashName();
-                $fileSaveInStorage = "/storage/moduls/$fileNameHash";
-                $request->modul_files->move(public_path('/storage/moduls'), $fileNameHash);
+                $fileSaveInStorage = "/moduls/$fileNameHash";
+                $request->modul_files->move(public_path('/moduls'), $fileNameHash);
             } elseif (!$validator->fails()) {
                 return response()->json([
                     'errors' => 'field tidak boleh ada yang kosong',
@@ -76,8 +76,8 @@ class ModulsController extends Controller
                 $update_modul_uuid = Moduls::find($uuid);
                 $getFile = $request->file('modul_files');
                 $fileNameHash = $getFile->hashName();
-                $fileSaveInStorage = "/storage/moduls/$fileNameHash";
-                $request->modul_files->move(public_path('/storage/moduls'), $fileNameHash);
+                $fileSaveInStorage = "/moduls/$fileNameHash";
+                $request->modul_files->move(public_path('/moduls'), $fileNameHash);
 
                 $update_modul_uuid->modul_categories_uuid = $request->input('modul_categories_uuid');
                 $update_modul_uuid->class_uuid = $request->input('class_uuid');
