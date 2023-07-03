@@ -1,4 +1,4 @@
-name: Deploy to ukmtechcode.com
+name: Deploy to server ukmtechcode
 on:
   push:
     branches:
