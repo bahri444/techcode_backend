@@ -59,7 +59,7 @@ class IndustriesController extends Controller
     {
         Validator::make($request->all(), [
             'industry_name' => 'required',
-            'industy_logo' => 'required|image|mimes:png,svg,jpeg|max:2048',
+            'industy_logo' => 'required|image|mimes:png,svg,jpg|max:2048',
             'vision' => 'required ',
             'mision' => 'required ',
             'objective' => 'required',

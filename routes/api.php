@@ -2,15 +2,14 @@
 
 use App\Http\Controllers\ActifityCategoriesController;
 use App\Http\Controllers\ActifityController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassesController;
 use App\Http\Controllers\IndustriesController;
 use App\Http\Controllers\ModulCategoriesController;
 use App\Http\Controllers\ModulsController;
 use App\Http\Controllers\ProfessionsController;
 use App\Http\Controllers\StudentClassController;
-use App\Http\Resources\UserCollection;
-use App\Models\ModulCategories;
-use App\Models\User;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,6 +35,18 @@ use Illuminate\Support\Facades\Route;
 //         User::all()->keyBy->user_id
 //     );
 // });
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/alluser', [UserController::class, 'GetAllUser']);
+Route::get('/account', [UserController::class, 'GetByUuid']);
+
+// route update profile oleh member
+Route::post('/accountupdate', [UserController::class, 'UpdateProfileMemeber']);
+Route::post('/updatefoto', [UserController::class, 'UpdateFotoProfile']);
+
+// route update profile oleh superadmin
+Route::post('/roleupdate', [UserController::class, 'UpdateRoleMember']);
+
 Route::get('/actifity_categories', [ActifityCategoriesController::class, 'GetAllActifityCategories']);
 Route::get('/actifity_category/{uuid}', [ActifityCategoriesController::class, 'GetActifityCategoriesByUuid']);
 Route::post('/add_actifity_categories', [ActifityCategoriesController::class, 'AddActifityCategories']);
