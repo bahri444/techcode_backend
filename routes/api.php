@@ -1,5 +1,15 @@
 <?php
 
+use App\Http\Controllers\ActifityCategoriesController;
+use App\Http\Controllers\ActifityController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassesController;
+use App\Http\Controllers\IndustriesController;
+use App\Http\Controllers\ModulCategoriesController;
+use App\Http\Controllers\ModulsController;
+use App\Http\Controllers\ProfessionsController;
+use App\Http\Controllers\StudentClassController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
