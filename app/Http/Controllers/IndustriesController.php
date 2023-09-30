@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Actifity;
 use App\Models\Industries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;

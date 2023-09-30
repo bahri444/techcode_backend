@@ -1,15 +1,6 @@
 <?php
 
-use App\Http\Controllers\ActifityCategoriesController;
-use App\Http\Controllers\ActifityController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ClassesController;
-use App\Http\Controllers\IndustriesController;
-use App\Http\Controllers\ModulCategoriesController;
-use App\Http\Controllers\ModulsController;
-use App\Http\Controllers\ProfessionsController;
-use App\Http\Controllers\StudentClassController;
-use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,22 +9,13 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
 |
 */
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
-// });
-// Route::get('/', function () {
-//     return Response::success("welcome to staging api lombok cyber");
-// });
-
-// Route::get('/users', function () {
-//     return UserCollection::collection(
-//         User::all()->keyBy->user_id
-//     );
 // });
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);

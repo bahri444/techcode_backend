@@ -15,6 +15,7 @@ use function file_put_contents;
 use function htmlspecialchars;
 use function is_string;
 use function round;
+use function strpos;
 use DOMDocument;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Driver\WriteOperationFailedException;
@@ -23,7 +24,10 @@ use SebastianBergmann\CodeCoverage\Util\Filesystem;
 
 final class Crap4j
 {
-    private readonly int $threshold;
+    /**
+     * @var int
+     */
+    private $threshold;
 
     public function __construct(int $threshold = 30)
     {
@@ -121,7 +125,9 @@ final class Crap4j
         $buffer = $document->saveXML();
 
         if ($target !== null) {
-            Filesystem::createDirectory(dirname($target));
+            if (!strpos($target, '://') !== false) {
+                Filesystem::createDirectory(dirname($target));
+            }
 
             if (@file_put_contents($target, $buffer) === false) {
                 throw new WriteOperationFailedException($target);

@@ -19,8 +19,7 @@ use UnitEnum;
 
 /**
  * @template TKey of array-key
- *
- * @template-covariant TValue
+ * @template TValue
  *
  * @property-read HigherOrderCollectionProxy $average
  * @property-read HigherOrderCollectionProxy $avg
@@ -297,11 +296,9 @@ trait EnumeratesValues
     /**
      * Get a single key's value from the first matching item in the collection.
      *
-     * @template TValueDefault
-     *
      * @param  string  $key
-     * @param  TValueDefault|(\Closure(): TValueDefault)  $default
-     * @return TValue|TValueDefault
+     * @param  mixed  $default
+     * @return mixed
      */
     public function value($key, $default = null)
     {
@@ -697,10 +694,8 @@ trait EnumeratesValues
     /**
      * Pass the collection into a new class.
      *
-     * @template TPipeIntoValue
-     *
-     * @param  class-string<TPipeIntoValue>  $class
-     * @return TPipeIntoValue
+     * @param  class-string  $class
+     * @return mixed
      */
     public function pipeInto($class)
     {
@@ -767,21 +762,6 @@ trait EnumeratesValues
         }
 
         return $result;
-    }
-
-    /**
-     * Reduce an associative collection to a single value.
-     *
-     * @template TReduceWithKeysInitial
-     * @template TReduceWithKeysReturnType
-     *
-     * @param  callable(TReduceWithKeysInitial|TReduceWithKeysReturnType, TValue, TKey): TReduceWithKeysReturnType  $callback
-     * @param  TReduceWithKeysInitial  $initial
-     * @return TReduceWithKeysReturnType
-     */
-    public function reduceWithKeys(callable $callback, $initial = null)
-    {
-        return $this->reduce($callback, $initial);
     }
 
     /**
@@ -972,17 +952,21 @@ trait EnumeratesValues
     {
         if (is_array($items)) {
             return $items;
+        } elseif ($items instanceof Enumerable) {
+            return $items->all();
+        } elseif ($items instanceof Arrayable) {
+            return $items->toArray();
+        } elseif ($items instanceof Traversable) {
+            return iterator_to_array($items);
+        } elseif ($items instanceof Jsonable) {
+            return json_decode($items->toJson(), true);
+        } elseif ($items instanceof JsonSerializable) {
+            return (array) $items->jsonSerialize();
+        } elseif ($items instanceof UnitEnum) {
+            return [$items];
         }
 
-        return match (true) {
-            $items instanceof Enumerable => $items->all(),
-            $items instanceof Arrayable => $items->toArray(),
-            $items instanceof Traversable => iterator_to_array($items),
-            $items instanceof Jsonable => json_decode($items->toJson(), true),
-            $items instanceof JsonSerializable => (array) $items->jsonSerialize(),
-            $items instanceof UnitEnum => [$items],
-            default => (array) $items,
-        };
+        return (array) $items;
     }
 
     /**
