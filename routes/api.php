@@ -4,6 +4,7 @@ use App\Http\Controllers\ActifityCategoriesController;
 use App\Http\Controllers\ActifityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IndustriesController;
 use App\Http\Controllers\ModulCategoriesController;
 use App\Http\Controllers\ModulsController;
@@ -39,6 +40,9 @@ Route::post('/updatefoto', [UserController::class, 'UpdateFotoProfile']);
 // route update profile oleh superadmin
 Route::post('/roleupdate', [UserController::class, 'UpdateRoleMember']);
 
+Route::get('/allmember', [DashboardController::class, 'GetMembers']);
+Route::get('/allkelas', [DashboardController::class, 'AllKelas']);
+Route::get('/allmodul', [DashboardController::class, 'AllModul']);
 Route::get('/actifity_categories', [ActifityCategoriesController::class, 'GetAllActifityCategories']);
 Route::get('/actifity_category/{uuid}', [ActifityCategoriesController::class, 'GetActifityCategoriesByUuid']);
 Route::post('/add_actifity_categories', [ActifityCategoriesController::class, 'AddActifityCategories']);
