@@ -40,9 +40,7 @@ Route::post('/updatefoto', [UserController::class, 'UpdateFotoProfile']);
 // route update profile oleh superadmin
 Route::post('/roleupdate', [UserController::class, 'UpdateRoleMember']);
 
-Route::get('/allmember', [DashboardController::class, 'GetMembers']);
-Route::get('/allkelas', [DashboardController::class, 'AllKelas']);
-Route::get('/allmodul', [DashboardController::class, 'AllModul']);
+Route::get('/getdatadashboard', [DashboardController::class, 'CountData']);
 Route::get('/actifity_categories', [ActifityCategoriesController::class, 'GetAllActifityCategories']);
 Route::get('/actifity_category/{uuid}', [ActifityCategoriesController::class, 'GetActifityCategoriesByUuid']);
 Route::post('/add_actifity_categories', [ActifityCategoriesController::class, 'AddActifityCategories']);
