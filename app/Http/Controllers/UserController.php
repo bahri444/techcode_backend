@@ -116,4 +116,83 @@ class UserController extends Controller
             ], 500);
         }
     }
+    public function AddUser(Request $request){
+        if($request->foto){
+
+            $Validator=Validator::make($request->all(),[
+            "nim"=>"required",
+            "nama_lengkap"=>"required",
+            "email"=>"required",
+            "jenis_kelamin"=>"required",
+            "alamat"=>"required",
+            "foto"=>"required",
+            "jenis_anggota"=>"required",
+            "status_anggota"=>"required",
+            "angkatan"=>"required",
+            "prodi"=>"required"
+            ]);
+            try{
+                if(!$Validator->fails()){
+                    $getFoto = $request->file('foto');
+                    $getFotoName = $getFoto->hashName();
+                    $directory = "/foto_member/$getFotoName";
+                    $request->foto->move(public_path('/foto_member/'),$getFotoName);
+                    $data_member = new User([
+                        'nim'=>$request->nim,
+                        'nama_lengkap'=>$request->nama_lengkap,
+                        'email'=>$request->email,
+                        'tanggal_lahir'=>$request->tanggal_lahir,
+                        'jenis_kelamin'=>$request->jenis_kelamin,
+                        'alamat'=>$request->alamat,
+                        'foto'=>$directory,
+                        'jenis_anggota'=>$request->jenis_anggota,
+                        'status_anggota'=>$request->status_anggota,
+                        'angkatan'=>$request->angkatan,
+                        'prodi'=>$request->prodi
+                    ]);
+                    dd($data_member);
+                    $data_member->save();
+                    return response()->json(['success'=>'Data berhasil disimpan'],200);
+                }elseif($Validator->fails()){
+                    return response()->json(['not_file'=>'foto tidak boleh kosong']);
+    
+                }
+            }catch(\Exception $e){
+                return response()->json(['errors'=>$e.'Data gagal ditambahkan'],500);
+            }
+        }else{
+            $Validator=Validator::make($request->all(),[
+            "nim"=>"required",
+            "nama_lengkap"=>"required",
+            "email"=>"required",
+            "jenis_kelamin"=>"required",
+            "alamat"=>"required",
+            "jenis_anggota"=>"required",
+            "status_anggota"=>"required",
+            "angkatan"=>"required",
+            "prodi"=>"required"
+            ]);
+            try{
+                
+                    $data_member = new User([
+                        'nim'=>$request->nim,
+                        'nama_lengkap'=>$request->nama_lengkap,
+                        'email'=>$request->email,
+                        'tanggal_lahir'=>$request->tanggal_lahir,
+                        'jenis_kelamin'=>$request->jenis_kelamin,
+                        'alamat'=>$request->alamat,
+                        'jenis_anggota'=>$request->jenis_anggota,
+                        'status_anggota'=>$request->status_anggota,
+                        'angkatan'=>$request->angkatan,
+                        'prodi'=>$request->prodi
+                    ]);
+                    // dd($data_member);
+                    $data_member->save();
+                    return response()->json(['success'=>'Data berhasil disimpan'],200);
+            }catch(\Exception $e){
+                return response()->json(['errors'=>$e.'Data gagal disimpan'],500);
+            }
+
+        }
+    }
 }
